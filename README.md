@@ -31,7 +31,8 @@ Next, tell OmniAuth about this provider. For a Rails app, your `config/initializ
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :zoom, "API_KEY", "API_SECRET"
+  zoom_scopes = %i[user:read meeting:read meeting:write]
+  provider :zoom, zoom_client_id, zoom_client_secret, :scope => zoom_scopes.join(',')
 end
 ```
 
@@ -42,7 +43,51 @@ Replace `"API_KEY"` and `"API_SECRET"` with the appropriate values you obtained 
 The auth hash `request.env['omniauth.auth']` would look like this:
 
 ```js
-TODO
+{
+    "result": {
+        "provider": "zoom",
+        "uid": "KdYKjnimT4KPd8FFgQt9FQ",
+        "info": {},
+        "credentials": {
+            "token": "ACCESS_TOKEN",
+            "refresh_token": "REFRESH_TOKEN",
+            "expires_at": 1594035991,
+            "expires": true
+        },
+        "extra": {
+            "raw_info": {
+                "id": "KdYKjnimT4KPd8FFgQt9FQ",
+                "first_name": "Jane",
+                "last_name": "Dev",
+                "email": "jane.dev@email.com",
+                "type": 2,
+                "role_name": "Owner",
+                "pmi": 1234567890,
+                "use_pmi": false,
+                "vanity_url": "https://janedevinc.zoom.us/my/janedev",
+                "personal_meeting_url": "https://janedevinc.zoom.us/j/1234567890",
+                "timezone": "America/Denver",
+                "verified": 1,
+                "dept": "",
+                "created_at": "2019-04-05T15:24:32Z",
+                "last_login_time": "2019-12-16T18:02:48Z",
+                "last_client_version": "4.6.12611.1124(mac)",
+                "pic_url": "https://janedev.zoom.us/p/KdYKjnimFR5Td8KKdQt9FQ/19f6430f-ca72-4154-8998-ede6be4542c7-837",
+                "host_key": "533895",
+                "jid": "kdykjnimt4kpd8kkdqt9fq@xmpp.zoom.us",
+                "group_ids": [],
+                "im_group_ids": [
+                    "3NXCD9VFTCOUH8LD-QciGw"
+                ],
+                "account_id": "gVcjZnYYRLDbb_MfgHuaxg",
+                "language": "en-US",
+                "phone_country": "US",
+                "phone_number": "+1 1234567891",
+                "status": "active"
+            }
+        }
+    }
+}
 ```
 
 ## Contributing
