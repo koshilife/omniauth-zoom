@@ -6,5 +6,8 @@ if ENV['CI'] == 'true'
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
-require "omniauth/zoom"
 require "minitest/autorun"
+require 'minitest/reporters'
+Minitest::Reporters.use!
+
+require "omniauth/zoom"
