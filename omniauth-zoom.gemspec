@@ -4,7 +4,7 @@ require_relative 'lib/omniauth-zoom/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'omniauth-zoom'
-  spec.version       = Omniauth::Zoom::VERSION
+  spec.version       = OmniAuth::Zoom::VERSION
   spec.authors       = ['Kenji Koshikawa']
   spec.email         = ['koshikawa2009@gmail.com']
 
@@ -35,6 +35,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'codecov', '~> 0.1.17'
   spec.add_development_dependency 'minitest', '~> 5.14.1'
   spec.add_development_dependency 'minitest-reporters', '~> 1.4.2'
+  spec.add_development_dependency 'omniauth', '~> 1.9.1'
+  spec.add_development_dependency 'rack-test', '~> 1.1.0'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'simplecov', '~> 0.18.5'
+  spec.add_development_dependency 'webmock', '~> 3.7.6'
 end
