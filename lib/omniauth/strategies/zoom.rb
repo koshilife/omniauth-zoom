@@ -36,7 +36,10 @@ module OmniAuth
         return @raw_info if defined?(@raw_info)
 
         @raw_info = access_token.get('/v2/users/me').parsed || {}
-      rescue StandardError => e
+      rescue ::OAuth2::Error => e
+        raise e unless e.response.status == 400
+
+        # in case of missing a scope for reading current user info
         log(:error, "#{e.class} occured. message:#{e.message}")
         @raw_info = {}
       end
