@@ -67,13 +67,22 @@ protected
     stub_request(:get, url).with(:headers => headers).to_return(:status => 200, :body => dummy_user_info_response.to_json, :headers => res_headers)
   end
 
-  def add_mock_user_info_then_fail
+  def add_mock_user_info_then_fail_because_of_missing_scope
     WebMock.enable!
     url = 'https://zoom.us/v2/users/me'
     response = {:code => 124, :message => 'Invalid access token.'}
     headers = {'Authorization' => "Bearer #{@access_token}"}
     res_headers = {'Content-Type' => 'application/json'}
     stub_request(:get, url).with(:headers => headers).to_return(:status => 400, :body => response.to_json, :headers => res_headers)
+  end
+
+  def add_mock_user_info_then_fail_because_of_unknown
+    WebMock.enable!
+    url = 'https://zoom.us/v2/users/me'
+    response = {:code => 999, :message => 'Unknown Error'}
+    headers = {'Authorization' => "Bearer #{@access_token}"}
+    res_headers = {'Content-Type' => 'application/json'}
+    stub_request(:get, url).with(:headers => headers).to_return(:status => 500, :body => response.to_json, :headers => res_headers)
   end
 
   def dummy_user_info_response
