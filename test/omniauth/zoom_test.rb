@@ -27,7 +27,7 @@ class StrategyZoomTest < StrategyTest
       'provider' => 'zoom',
       'uid' => dummy_user_info_response[:id],
       'info' => {'name' => nil},
-      'credentials' => {'token' => 'DUMMY_TOKEN', 'refresh_token' => 'DUMMY_REFRESH_TOKEN', 'expires' => true},
+      'credentials' => {'token' => @access_token, 'refresh_token' => @refresh_token, 'expires' => true},
       'extra' => {
         'raw_info' => JSON.parse(dummy_user_info_response.to_json)
       }
@@ -46,7 +46,7 @@ class StrategyZoomTest < StrategyTest
       'provider' => 'zoom',
       'uid' => nil,
       'info' => {'name' => nil},
-      'credentials' => {'token' => 'DUMMY_TOKEN', 'refresh_token' => 'DUMMY_REFRESH_TOKEN', 'expires' => true},
+      'credentials' => {'token' => @access_token, 'refresh_token' => @refresh_token, 'expires' => true},
       'extra' => {'raw_info' => {}}
     }
     assert_equal(expected_auth, actual_auth)

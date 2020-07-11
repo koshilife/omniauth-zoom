@@ -22,16 +22,15 @@ class StrategyTest < Minitest::Test
   include Rack::Test::Methods
 
   def setup
-    ENV['OAUTH_DEBUG'] = 'true'
     @logger = Logger.new STDOUT
     OmniAuth.config.logger = @logger
-
     @client_id = 'DUMMY_CLIENT_ID'
     @client_secret = 'DUMMY_CLIENT_SECRET'
     @scope = 'user_profile'
     @options = {:scope => @scope, :provider_ignores_state => true}
     @authorization_code = 'DUMMY_AUTH_CODE'
     @access_token = 'DUMMY_TOKEN'
+    @refresh_token = 'DUMMY_REFRESH_TOKEN'
   end
 
 protected
@@ -53,7 +52,7 @@ protected
     {
       :access_token => @access_token,
       :token_type => 'bearer',
-      :refresh_token => 'DUMMY_REFRESH_TOKEN',
+      :refresh_token => @refresh_token,
       :expires_in => 3600,
       :scope => 'user_profile'
     }
