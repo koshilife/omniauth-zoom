@@ -1,3 +1,8 @@
+# 0.2.0
+
+- refs #11 fix library dependencies.
+- remove minitest-reporter.
+
 # 0.1.2
 
 - make the error handling when missing scope for reading user info better.
