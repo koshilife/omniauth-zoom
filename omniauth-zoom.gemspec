@@ -28,16 +28,15 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'oauth2', '~> 1.4.4'
-  spec.add_runtime_dependency 'omniauth-oauth2', '~> 1.6.0'
+  spec.add_runtime_dependency 'oauth2', '>= 1.4.4'
+  spec.add_runtime_dependency 'omniauth-oauth2', '>= 1.6.0'
 
-  spec.add_development_dependency 'bundler', '~> 2.1'
-  spec.add_development_dependency 'codecov', '~> 0.1.17'
-  spec.add_development_dependency 'minitest', '~> 5.14.1'
-  spec.add_development_dependency 'minitest-reporters', '~> 1.4.2'
-  spec.add_development_dependency 'omniauth', '~> 1.9.1'
-  spec.add_development_dependency 'rack-test', '~> 1.1.0'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'simplecov', '~> 0.18.5'
-  spec.add_development_dependency 'webmock', '~> 3.7.6'
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'codecov'
+  spec.add_development_dependency 'minitest'
+  spec.add_development_dependency 'omniauth'
+  spec.add_development_dependency 'rack-test'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'webmock'
 end
