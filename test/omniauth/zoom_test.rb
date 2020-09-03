@@ -19,7 +19,7 @@ class StrategyZoomTest < StrategyTest
   def test_it_returns_auth_hash_in_callback_phase
     add_mock_exchange_token
     add_mock_user_info
-    post '/auth/zoom/callback', :code => @authorization_code, :state => 'state123'
+    post '/auth/zoom/callback', code: @authorization_code, state: 'state123'
 
     actual_auth = auth_hash.to_hash
     assert(!actual_auth['credentials'].delete('expires_at').nil?)
@@ -38,7 +38,7 @@ class StrategyZoomTest < StrategyTest
   def test_it_returns_auth_hash_in_case_of_failure_of_get_user_info_in_callbach_phase
     add_mock_exchange_token
     add_mock_user_info_then_fail_because_of_missing_scope
-    post '/auth/zoom/callback', :code => @authorization_code, :state => 'state123'
+    post '/auth/zoom/callback', code: @authorization_code, state: 'state123'
 
     actual_auth = auth_hash.to_hash
     assert(!actual_auth['credentials'].delete('expires_at').nil?)
@@ -55,7 +55,7 @@ class StrategyZoomTest < StrategyTest
   def test_it_does_not_return_auth_hash_in_case_of_unkonwn_failure_in_callbach_phase
     add_mock_exchange_token
     add_mock_user_info_then_fail_because_of_unknown
-    post '/auth/zoom/callback', :code => @authorization_code, :state => 'state123'
+    post '/auth/zoom/callback', code: @authorization_code, state: 'state123'
     assert_nil(auth_hash)
   end
 
