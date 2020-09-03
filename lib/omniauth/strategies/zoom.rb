@@ -9,22 +9,22 @@ module OmniAuth
     # OmniAuth strategy for zoom.us
     class Zoom < OmniAuth::Strategies::OAuth2
       option :name, 'zoom'
-      option :client_options, :site => 'https://zoom.us'
+      option :client_options, site: 'https://zoom.us'
 
       uid { raw_info['id'] }
-      extra { {:raw_info => raw_info} }
+      extra { {raw_info: raw_info} }
 
     protected
 
       def build_access_token
         params = {
-          :grant_type => 'authorization_code',
-          :code => request.params['code'],
-          :redirect_uri => callback_url
+          grant_type: 'authorization_code',
+          code: request.params['code'],
+          redirect_uri: callback_url
         }
         path = "#{client.options[:token_url]}?#{URI.encode_www_form(params)}"
         headers_secret = Base64.strict_encode64("#{client.id}:#{client.secret}")
-        opts = {:headers => {:Authorization => "Basic #{headers_secret}"}}
+        opts = {headers: {Authorization: "Basic #{headers_secret}"}}
 
         res = client.request(:post, path, opts)
         ::OAuth2::AccessToken.from_hash(client, res.parsed)
