@@ -86,6 +86,47 @@ The auth hash `request.env['omniauth.auth']` would look like this:
 }
 ```
 
+## Refreshing an Access Token
+
+Access token expires after one hour, therefore you will have to [refresh a user's access token](git@github.com:koshilife/omniauth-zoom.git) when they expire.
+
+Encode the Client ID and Client Secret with [Base64](https://www.base64encode.org/) for the "Basic" authorization string in your request header.
+
+```ruby
+require 'faraday'
+
+CLIENT_ID = '<YOUR_CLIENT_ID>'
+CLIENT_SECRET = '<YOUR_CLIENT_SECRET>'
+REFRESH_TOKEN = '<YOUR_REFRESH_TOKEN>'
+
+headers_secret = Base64.strict_encode64("#{CLIENT_ID}:#{CLIENT_SECRET}")
+headers = { 'Authorization': "Basic #{headers_secret}" }
+
+params = { grant_type: 'refresh_token', refresh_token: REFRESH_TOKEN}
+url = "https://zoom.us/oauth/token?#{params.to_query}"
+res = Faraday.post url do |req|
+  req.headers = headers
+end
+raise 'zoom api error' unless res.status == 200
+
+body = JSON.parse(res.body, symbolize_names: true)
+new_access_token = body[:access_token]
+new_refresh_token = body[:refresh_token]
+access_token_expires_at = Time.current.since(body[:expires_in])
+```
+
+If successful, it will respond with something like this:
+
+```json
+{
+    "access_token": "NEW ACCESS TOKEN",
+    "token_type": "bearer",
+    "refresh_token": "NEW REFRESH TOKEN",
+    "expires_in": 3599,
+    "scope": "user:read"
+}
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on [GitHub](https://github.com/koshilife/omniauth-zoom). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
