@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.0
+
+- allowed for omniauth 2.0 series.
+
 ## 0.3.0
 
 - be specified dependency for omniauth 1.9.
