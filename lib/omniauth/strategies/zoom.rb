@@ -14,20 +14,11 @@ module OmniAuth
       uid { raw_info['id'] }
       extra { {raw_info: raw_info} }
 
-    protected
-
-      def build_access_token
-        params = {
-          grant_type: 'authorization_code',
-          code: request.params['code'],
-          redirect_uri: callback_url
-        }
-        path = "#{client.options[:token_url]}?#{URI.encode_www_form(params)}"
-        headers_secret = Base64.strict_encode64("#{client.id}:#{client.secret}")
-        opts = {headers: {Authorization: "Basic #{headers_secret}"}}
-
-        res = client.request(:post, path, opts)
-        ::OAuth2::AccessToken.from_hash(client, res.parsed)
+      def token_params
+        params = super
+        params[:headers] ||= {}
+        params[:headers][:Authorization] = format('Basic %s', Base64.strict_encode64("#{client.id}:#{client.secret}"))
+        params
       end
 
     private
