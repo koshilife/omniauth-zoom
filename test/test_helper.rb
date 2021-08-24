@@ -39,9 +39,9 @@ protected
 
   def add_mock_exchange_token
     WebMock.enable!
-    url = "https://zoom.us/oauth/token?code=#{@authorization_code}&grant_type=authorization_code&redirect_uri=http://example.org/auth/zoom/callback"
+    url = 'https://zoom.us/oauth/token'
     secret = Base64.strict_encode64("#{@client_id}:#{@client_secret}")
-    headers = {'Authorization' => "Basic #{secret}"}
+    headers = {'Authorization' => "Basic #{secret}", 'Content-Type' => 'application/x-www-form-urlencoded'}
     res_headers = {'Content-Type' => 'application/json'}
     stub_request(:post, url).with(headers: headers).to_return(status: 200, body: dummy_token_response.to_json, headers: res_headers)
   end
