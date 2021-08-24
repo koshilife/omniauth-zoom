@@ -1,8 +1,17 @@
 # CHANGELOG
 
+## 1.1.0
+
+- change to use x-www-form-urlencoded in the request of getting tokens.(#18)
+
 ## 1.0.0
 
 - allowed for omniauth 2.0 series.
+
+## 0.4.0
+
+- This release supported for omniauth 1.0 series.
+  - change to use x-www-form-urlencoded in the request of getting tokens.(#18)
 
 ## 0.3.0
 
