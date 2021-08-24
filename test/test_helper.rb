@@ -39,11 +39,12 @@ protected
 
   def add_mock_exchange_token
     WebMock.enable!
-    url = "https://zoom.us/oauth/token?code=#{@authorization_code}&grant_type=authorization_code&redirect_uri=http://example.org/auth/zoom/callback"
+    url = 'https://zoom.us/oauth/token'
     secret = Base64.strict_encode64("#{@client_id}:#{@client_secret}")
-    headers = {'Authorization' => "Basic #{secret}"}
+    headers = {'Authorization' => "Basic #{secret}", 'Content-Type' => 'application/x-www-form-urlencoded'}
     res_headers = {'Content-Type' => 'application/json'}
-    stub_request(:post, url).with(headers: headers).to_return(status: 200, body: dummy_token_response.to_json, headers: res_headers)
+    stub_request(:post, url).with(headers: headers).to_return(status: 200, body: dummy_token_response.to_json,
+                                                              headers: res_headers)
   end
 
   def dummy_token_response
@@ -61,7 +62,8 @@ protected
     url = 'https://zoom.us/v2/users/me'
     headers = {'Authorization' => "Bearer #{@access_token}"}
     res_headers = {'Content-Type' => 'application/json'}
-    stub_request(:get, url).with(headers: headers).to_return(status: 200, body: dummy_user_info_response.to_json, headers: res_headers)
+    stub_request(:get, url).with(headers: headers).to_return(status: 200, body: dummy_user_info_response.to_json,
+                                                             headers: res_headers)
   end
 
   def add_mock_user_info_then_fail_because_of_missing_scope
@@ -82,7 +84,7 @@ protected
     stub_request(:get, url).with(headers: headers).to_return(status: 500, body: response.to_json, headers: res_headers)
   end
 
-  def dummy_user_info_response
+  def dummy_user_info_response # rubocop:disable Metrics/MethodLength
     {
       id: 'KdYKjnimT4KPd8FFgQt9FQ',
       first_name: 'Jane',

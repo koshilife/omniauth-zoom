@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.0
+
+- change to use x-www-form-urlencoded in the request of getting tokens.(#18)
+
 ## 0.3.0
 
 - be specified dependency for omniauth 1.9.
